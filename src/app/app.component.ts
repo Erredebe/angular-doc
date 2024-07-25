@@ -4,7 +4,7 @@ import { DocGeneratorService } from './doc-generator.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   constructor(private docGeneratorService: DocGeneratorService) {}
