@@ -5,7 +5,6 @@ import { LocalStorageKeys } from '../local-storage/utils/local-storage.helper';
   providedIn: 'root',
 })
 export class LocalStorageService {
-  // En tu clase o componente
   private basicTools: any[] = [];
   constructor() {}
 
@@ -31,7 +30,7 @@ export class LocalStorageService {
   }
 
   recoberyPlantilla() {
-    const base64Content = localStorage.getItem(LocalStorageKeys.plantilla);
+    const base64Content = localStorage.getItem(LocalStorageKeys.PLANTILLA);
     if (base64Content) {
       // Decodificar el contenido base64
       const fileContent = atob(base64Content);

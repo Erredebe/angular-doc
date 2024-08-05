@@ -1,4 +1,4 @@
 export enum LocalStorageKeys {
-  plantilla = 'plantilladoc',
-  datosJson = 'datosJson',
+  PLANTILLA = 'plantilladoc',
+  DATOSJSON = 'datosJson',
 }

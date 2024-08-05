@@ -1,0 +1,25 @@
+textarea {
+  width: 100%;
+  height: 300px;
+  padding: 10px;
+  font-family: monospace; /* Fuente monoespaciada para mejor legibilidad del código */
+  font-size: 14px;
+  line-height: 1.5;
+  color: #333;
+  background-color: #f7f7f7; /* Fondo suave */
+  border: 1px solid #ccc; /* Borde gris claro */
+  border-radius: 5px;
+  resize: vertical; /* Permite redimensionar solo verticalmente */
+  overflow-x: auto; /* Asegura que el contenido no se desborde horizontalmente */
+  white-space: pre; /* Mantiene el formato de espacios y saltos de línea */
+}
+
+textarea::placeholder {
+  color: #aaa; /* Color de placeholder más claro */
+}
+
+textarea:focus {
+  outline: none;
+  border-color: #66afe9; /* Color de borde al enfocarse */
+  box-shadow: 0 0 5px rgba(102, 175, 233, 0.6); /* Sombra suave al enfocarse */
+}

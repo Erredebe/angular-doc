@@ -20,7 +20,7 @@ export class DocxUploaderComponent {
         const base64Content = btoa(fileContent);
 
         // Guardar en local storage
-        localStorage.setItem(LocalStorageKeys.plantilla, base64Content);
+        localStorage.setItem(LocalStorageKeys.PLANTILLA, base64Content);
 
         alert('El archivo .docx ha sido guardado en el almacenamiento local.');
       };

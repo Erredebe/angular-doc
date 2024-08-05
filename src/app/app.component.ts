@@ -8,6 +8,7 @@ import { LocalStorageService } from './local-storage/local-storage.service';
 import { newDocGenerate } from './doc-generator/utils/new-doc-generator';
 import { LocalStorageKeys } from './local-storage/utils/local-storage.helper';
 import { generateTableDocument } from './doc-generator/utils/export-basic-template';
+import { StorageService } from './core/storage/storage.service';
 
 @Component({
   selector: 'app-root',
@@ -15,51 +16,18 @@ import { generateTableDocument } from './doc-generator/utils/export-basic-templa
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  public cargados: any[] = [];
-  public docName: string = '';
-  constructor(
-    private docGeneratorService: DocGeneratorService,
-    private localStorageService: LocalStorageService
-  ) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    this.localStorageService.comprobarLocalStorage();
-    this.cargados = this.localStorageService.getLocalStorageFiles();
-  }
-  handleNameSaved(newName: string) {
-    this.docName = newName;
-  }
-  handleJsonSaved(json: any) {
-    console.log('JSON recibido:', json);
-    // Aquí puedes hacer lo que necesites con el JSON
-  }
-  generarPlantillaSimple() {
-    const jsonData = this.cargados.find(
-      ({ key }) => key === LocalStorageKeys.datosJson
-    );
-    if (jsonData) {
-      const jsonToSend = jsonData.file; // Acceder directamente a la propiedad 'file'
-      generateTableDocument(jsonToSend);
-    }
-  }
-  newDocGenerate() {
-    newDocGenerate(this.cargados, this.docName);
-  }
-  downloadTableDocument() {
-    this.docGeneratorService.generateTableDocument();
-  }
+  ngOnInit(): void {}
 
-  downloadDocument(): void {
-    this.docGeneratorService.generateWordDocument();
+  handleJsonChange($event: any) {
+    console.log('handleJsonChange', $event);
   }
-  downloadLandscape(): void {
-    this.docGeneratorService.createLandscapeDocument();
+  handleNameSaved($event: any) {
+    console.log('handleNameSaved', $event);
   }
-
-  downloadSampleDoc(): void {
-    this.docGeneratorService.generateDoc(sampleInfoDoc);
-  }
-  downloadTemplateDoc(): void {
-    this.docGeneratorService.generateTemplateSample(sampleInfoTemplate);
+  handleJsonToolChange($event: any) {
+    debugger;
+    console.log('handleJsonToolChange', $event);
   }
 }

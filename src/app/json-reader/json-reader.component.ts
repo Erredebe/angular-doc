@@ -28,7 +28,7 @@ export class JsonReaderComponent implements OnInit {
 
   saved = false;
   ngOnInit(): void {
-    const savedJson = localStorage.getItem(LocalStorageKeys.datosJson);
+    const savedJson = localStorage.getItem(LocalStorageKeys.DATOSJSON);
     if (savedJson) {
       const jsonString = JSON.parse(savedJson);
       const formattedJson = JSON.stringify(jsonString, null, 4);
@@ -57,7 +57,7 @@ export class JsonReaderComponent implements OnInit {
       const parsedJson = JSON.parse(jsonInput);
       this.jsonSaved.emit(parsedJson);
       localStorage.setItem(
-        LocalStorageKeys.datosJson,
+        LocalStorageKeys.DATOSJSON,
         JSON.stringify(parsedJson)
       );
       this.saved = true;

@@ -4,7 +4,7 @@ import { LocalStorageKeys } from 'src/app/local-storage/utils/local-storage.help
 
 export function newDocGenerate(files: any[], name = 'documentoGenerado') {
   // Obtener la plantilla desde el local storage
-  const templateBase64 = localStorage.getItem(LocalStorageKeys.plantilla);
+  const templateBase64 = localStorage.getItem(LocalStorageKeys.PLANTILLA);
   if (!templateBase64) {
     console.error('Error: No se encontró la plantilla en el local storage.');
     return;
@@ -20,7 +20,7 @@ export function newDocGenerate(files: any[], name = 'documentoGenerado') {
 
   // Obtener los datos JSON desde los archivos
   let parsedData;
-  const data = files.find((file) => file.key === LocalStorageKeys.datosJson);
+  const data = files.find((file) => file.key === LocalStorageKeys.DATOSJSON);
   if (data) {
     parsedData = JSON.parse(data.file);
     // Continuar con el procesamiento de parsedData...

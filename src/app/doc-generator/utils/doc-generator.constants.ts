@@ -8,12 +8,12 @@ export const landscapePage = {
       height: 12240, // Tamaño en puntos para orientación apaisada
     },
     margin: {
-      top: 720,
-      right: 720,
-      bottom: 720,
-      left: 720,
+      top: 0,
+      right: 0,
+      bottom: 0,
+      left: 0,
     },
-    orientation: PageOrientation.LANDSCAPE,
+    //orientation: PageOrientation.LANDSCAPE,
   },
 };
 
@@ -24,11 +24,11 @@ export const portraitPage = {
       height: 15840, // Tamaño en puntos para orientación vertical
     },
     margin: {
-      top: 720,
-      right: 720,
-      bottom: 720,
-      left: 720,
+      top: 0,
+      right: 0,
+      bottom: 0,
+      left: 0,
     },
-    orientation: PageOrientation.PORTRAIT,
+    //orientation: PageOrientation.PORTRAIT,
   },
 };
