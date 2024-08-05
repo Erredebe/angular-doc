@@ -1,0 +1,35 @@
+<div class="json-reader">
+  <label for="documentName" class="document-name-label">
+    Nombre del documento:
+  </label>
+  <div class="name-section">
+    <input
+      id="documentName"
+      type="text"
+      #nameInput
+      value="Mi Documento de prueba"
+      placeholder="Introduce el nombre del documento"
+      class="document-name-input"
+    />
+    <button class="save-button" (click)="saveName()">Guardar Nombre</button>
+  </div>
+  <br />
+
+  <!-- Textarea para editar JSON -->
+  <textarea
+    #jsonTextarea
+    placeholder="Pega tu JSON aquí"
+    rows="20"
+    cols="80"
+    (input)="formatJson()"
+  ></textarea>
+
+  <br />
+
+  <br />
+
+  <button class="save-button" (click)="saveJson()">Guardar JSON</button>
+  <button class="save-button" (click)="downloadJson()">Descargar JSON</button>
+</div>
+<!-- Aquí mostramos el JSON formateado -->
+<pre><code #jsonCode></code></pre>

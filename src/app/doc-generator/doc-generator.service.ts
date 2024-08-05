@@ -9,12 +9,26 @@ import {
   TextRun,
 } from 'docx';
 import { saveAs } from 'file-saver';
+import { DocInterface } from './utils/doc-info.interface';
+import { generateDocHelper } from './utils/doc-generator.helper';
+import { generateTemplateSample } from './utils/doc-generator-template.helper';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DocGeneratorService {
   constructor() {}
+
+  newGeneration(): void {}
+
+  generateTemplateSample(infoTemplate: any) {
+    generateTemplateSample(infoTemplate);
+  }
+
+  generateDoc(infoDoc: DocInterface) {
+    console.log('infoDoc', infoDoc);
+    generateDocHelper(infoDoc);
+  }
 
   createLandscapeDocument(retorno = false): void | Document {
     const doc = new Document({
@@ -148,6 +162,7 @@ export class DocGeneratorService {
     !retorno && this.exportDoc(doc, 'document');
     return doc;
   }
+
   generateTableDocument(retorno = false): void | Document {
     const doc = new Document({
       sections: [

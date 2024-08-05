@@ -1,12 +1,15 @@
-<h2>Doc Generator</h2>
-<div>
-  <button (click)="downloadDocument()">Download Word Document</button>
-  <br />
-  <br />
-  <button (click)="downloadTableDocument()">Download Table Document</button>
-  <br />
-  <br />
-  <button (click)="downloadLandscape()">Download Landscape Document</button>
-  <br />
-  <br />
+<div class="container">
+  <div class="sidebar">
+    <h2>Doc Generator</h2>
+    <app-docx-uploader></app-docx-uploader>
+    <button (click)="newDocGenerate()">Descargar Documento</button>
+    <button (click)="generarPlantillaSimple()">Generar Plantilla Simple</button>
+  </div>
+
+  <div class="main-content">
+    <app-json-reader
+      (jsonSaved)="handleJsonSaved($event)"
+      (nameSaved)="handleNameSaved($event)"
+    ></app-json-reader>
+  </div>
 </div>
