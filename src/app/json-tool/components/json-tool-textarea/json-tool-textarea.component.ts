@@ -2,6 +2,7 @@ import {
   Component,
   ElementRef,
   EventEmitter,
+  Input,
   OnInit,
   Output,
   ViewChild,
@@ -13,8 +14,8 @@ import {
   styleUrls: ['./json-tool-textarea.component.scss'],
 })
 export class JsonToolTextareaComponent implements OnInit {
-  // @ViewChild('jsonTextarea', { static: true })
-  // jsonTextarea!: ElementRef<HTMLTextAreaElement>;
+  @Input() jsonDataInput: string = '';
+
   @Output() jsonChange: EventEmitter<any> = new EventEmitter<any>();
   public jsonText: string = '';
   public jsonData: any;
@@ -29,7 +30,7 @@ export class JsonToolTextareaComponent implements OnInit {
     this.jsonText = input.value;
     try {
       this.jsonData = JSON.parse(this.jsonText);
-      console.log('JSON válido:', this.jsonData);
+      // console.log('JSON válido:', this.jsonData);
     } catch (e) {
       console.warn('JSON no válido:', e);
     }

@@ -12,9 +12,11 @@
 
   <div class="main-content">
     <app-json-tool
+      [jsonData]="this.store[1].data"
       (jsonChange)="handleJsonChange($event)"
       (nameSaved)="handleNameSaved($event)"
       (jsonToolChange)="handleJsonToolChange($event)"
+      (jsonToolJsonSaveClick)="handleJsonSaveClick($event)"
     ></app-json-tool>
     <!-- <app-json-reader
       (jsonSaved)="handleJsonSaved($event)"

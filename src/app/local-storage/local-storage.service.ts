@@ -1,12 +1,16 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { LocalStorageKeys } from '../local-storage/utils/local-storage.helper';
 
 @Injectable({
   providedIn: 'root',
 })
-export class LocalStorageService {
+export class LocalStorageService implements OnInit {
   private basicTools: any[] = [];
   constructor() {}
+
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
+  }
 
   public getLocalStorageFiles(): any[] {
     return this.basicTools;

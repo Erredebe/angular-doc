@@ -3,6 +3,8 @@
     (nameSaved)="handleNameSaved($event)"
   ></app-json-tool-input-name>
   <app-json-tool-textarea
+    [jsonDataInput]="jsonData"
     (jsonChange)="handleJsonChange($event)"
   ></app-json-tool-textarea>
+  <app-json-tool-save (saveClicked)="onSaveButtonClick()"></app-json-tool-save>
 </div>

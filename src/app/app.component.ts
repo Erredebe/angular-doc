@@ -1,14 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DocGeneratorService } from './doc-generator/doc-generator.service';
-import {
-  sampleInfoDoc,
-  sampleInfoTemplate,
-} from './doc-generator/utils/sample-info';
-import { LocalStorageService } from './local-storage/local-storage.service';
-import { newDocGenerate } from './doc-generator/utils/new-doc-generator';
-import { LocalStorageKeys } from './local-storage/utils/local-storage.helper';
-import { generateTableDocument } from './doc-generator/utils/export-basic-template';
 import { StorageService } from './core/storage/storage.service';
+import { StorageKeys } from './core/storage/utils/storage.helpers';
 
 @Component({
   selector: 'app-root',
@@ -16,9 +8,14 @@ import { StorageService } from './core/storage/storage.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  constructor() {}
+  public store: any[] = [];
 
-  ngOnInit(): void {}
+  constructor(private storageService: StorageService) {}
+
+  ngOnInit(): void {
+    this.storageService.loadAllFilesFromLocalStorage();
+    this.store = { ...this.store, ...this.storageService.getAllStoreItems() };
+  }
 
   handleJsonChange($event: any) {
     console.log('handleJsonChange', $event);
@@ -27,7 +24,12 @@ export class AppComponent implements OnInit {
     console.log('handleNameSaved', $event);
   }
   handleJsonToolChange($event: any) {
-    debugger;
     console.log('handleJsonToolChange', $event);
+  }
+
+  handleJsonSaveClick($event: any) {
+    const { json } = $event;
+    console.log('handleJsonSaveClick', json);
+    this.storageService.setStorageItem(StorageKeys.DATOSJSON, json);
   }
 }

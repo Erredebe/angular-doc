@@ -10,11 +10,12 @@ import { DocxUploaderComponent } from './docx-uploader/docx-uploader.component';
 import { JsonToolModule } from './json-tool/json-tool.module';
 import { JsonToolComponent } from './json-tool/json-tool.component';
 import { CoreModule } from './core/core.module';
+import { StorageService } from './core/storage/storage.service';
 
 @NgModule({
   declarations: [AppComponent, JsonReaderComponent, DocxUploaderComponent],
   imports: [BrowserModule, AppRoutingModule, JsonToolModule, CoreModule],
-  providers: [DocGeneratorService, LocalStorageService],
+  providers: [DocGeneratorService, LocalStorageService, StorageService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
