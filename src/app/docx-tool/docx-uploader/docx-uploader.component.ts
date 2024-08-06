@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { LocalStorageKeys } from '../local-storage/utils/local-storage.helper';
+import { StorageService } from '../../core/storage/storage.service';
+import { StorageKeys } from '../../core/storage/utils/storage.helpers';
 
 @Component({
   selector: 'app-docx-uploader',
@@ -7,20 +8,24 @@ import { LocalStorageKeys } from '../local-storage/utils/local-storage.helper';
   styleUrls: ['./docx-uploader.component.scss'],
 })
 export class DocxUploaderComponent {
+  constructor(private storageService: StorageService) {}
+
   onFileSelected(event: Event) {
+    debugger;
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
 
       const reader = new FileReader();
       reader.onload = () => {
-        const fileContent = reader.result as string;
-
-        // Convertir el contenido a base64
-        const base64Content = btoa(fileContent);
+        const arrayBuffer = reader.result as ArrayBuffer;
+        const base64Content = this.arrayBufferToBase64(arrayBuffer);
 
         // Guardar en local storage
-        localStorage.setItem(LocalStorageKeys.PLANTILLA, base64Content);
+        this.storageService.setStorageItem(
+          StorageKeys.PLANTILLA,
+          base64Content
+        );
 
         alert('El archivo .docx ha sido guardado en el almacenamiento local.');
       };
@@ -32,7 +37,17 @@ export class DocxUploaderComponent {
         );
       };
 
-      reader.readAsBinaryString(file); // Leer el archivo como binario
+      reader.readAsArrayBuffer(file); // Leer el archivo como ArrayBuffer
     }
+  }
+
+  private arrayBufferToBase64(buffer: ArrayBuffer): string {
+    let binary = '';
+    const bytes = new Uint8Array(buffer);
+    const len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    return btoa(binary);
   }
 }

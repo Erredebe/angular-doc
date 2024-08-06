@@ -3,37 +3,41 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  OnChanges,
   OnInit,
   Output,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
+import { JsonToolService } from '../../services/json-tool.service';
 
 @Component({
   selector: 'app-json-tool-textarea',
   templateUrl: './json-tool-textarea.component.html',
   styleUrls: ['./json-tool-textarea.component.scss'],
 })
-export class JsonToolTextareaComponent implements OnInit {
+export class JsonToolTextareaComponent implements OnInit, OnChanges {
+  @ViewChild('jsonTextarea', { static: true })
+  jsonTextarea!: ElementRef<HTMLTextAreaElement>;
+
   @Input() jsonDataInput: string = '';
 
   @Output() jsonChange: EventEmitter<any> = new EventEmitter<any>();
-  public jsonText: string = '';
-  public jsonData: any;
 
-  constructor() {}
+  constructor(private jsonToolService: JsonToolService) {}
 
   ngOnInit(): void {}
+  ngOnChanges(changes: SimpleChanges): void {
+    debugger;
+    const {
+      jsonDataInput: { currentValue },
+    } = changes;
+    !!currentValue && this.jsonChange.emit(currentValue);
+  }
 
-  // Método para manejar el cambio de contenido en el textarea
-  onJsonTextChange(event: Event): void {
-    const input = event.target as HTMLTextAreaElement;
-    this.jsonText = input.value;
-    try {
-      this.jsonData = JSON.parse(this.jsonText);
-      // console.log('JSON válido:', this.jsonData);
-    } catch (e) {
-      console.warn('JSON no válido:', e);
-    }
-    this.jsonChange.emit(input.value);
+  handlChange() {
+    const json = JSON.parse(this.jsonTextarea.nativeElement.value);
+    debugger;
+    this.jsonChange.emit(json);
   }
 }

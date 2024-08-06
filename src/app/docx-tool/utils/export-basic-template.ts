@@ -10,7 +10,7 @@ import {
 import { saveAs } from 'file-saver';
 
 // Función para generar el documento con la tabla
-export function generateTableDocument(
+export function generateBasicTemplate(
   jsonData: string, // Aquí esperamos que jsonData sea una cadena JSON
   retorno = false
 ): void | Document {

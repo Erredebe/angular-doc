@@ -6,7 +6,7 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { LocalStorageKeys } from '../local-storage/utils/local-storage.helper';
+import { StorageKeys } from '../core/storage/utils/storage.helpers';
 
 @Component({
   selector: 'app-json-reader',
@@ -28,7 +28,7 @@ export class JsonReaderComponent implements OnInit {
 
   saved = false;
   ngOnInit(): void {
-    const savedJson = localStorage.getItem(LocalStorageKeys.DATOSJSON);
+    const savedJson = localStorage.getItem(StorageKeys.DATOSJSON);
     if (savedJson) {
       const jsonString = JSON.parse(savedJson);
       const formattedJson = JSON.stringify(jsonString, null, 4);
@@ -56,10 +56,7 @@ export class JsonReaderComponent implements OnInit {
     try {
       const parsedJson = JSON.parse(jsonInput);
       this.jsonSaved.emit(parsedJson);
-      localStorage.setItem(
-        LocalStorageKeys.DATOSJSON,
-        JSON.stringify(parsedJson)
-      );
+      localStorage.setItem(StorageKeys.DATOSJSON, JSON.stringify(parsedJson));
       this.saved = true;
       alert('JSON guardado correctamente');
     } catch (error) {

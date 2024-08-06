@@ -5,22 +5,20 @@
     <div class="logo-container">
       <img src="assets/images/logo.png" alt="Angular Doc Logo" class="logo" />
     </div>
-    <app-docx-uploader></app-docx-uploader>
-    <!-- <button (click)="newDocGenerate()">Descargar Documento</button>
-    <button (click)="generarPlantillaSimple()">Generar Plantilla Simple</button> -->
+    <app-docx-uploader class="sidebar-item"></app-docx-uploader>
+    <app-docx-tool-generate-boton
+      class="sidebar-item"
+    ></app-docx-tool-generate-boton>
+    <app-doox-tool-template-generator></app-doox-tool-template-generator>
   </div>
 
   <div class="main-content">
     <app-json-tool
-      [jsonData]="this.store[1].data"
+      [jsonData]="jsonSample"
       (jsonChange)="handleJsonChange($event)"
       (nameSaved)="handleNameSaved($event)"
       (jsonToolChange)="handleJsonToolChange($event)"
       (jsonToolJsonSaveClick)="handleJsonSaveClick($event)"
     ></app-json-tool>
-    <!-- <app-json-reader
-      (jsonSaved)="handleJsonSaved($event)"
-      (nameSaved)="handleNameSaved($event)"
-    ></app-json-reader> -->
   </div>
 </div>

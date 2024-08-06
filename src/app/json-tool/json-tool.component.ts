@@ -16,7 +16,7 @@ import { JsonToolService } from './services/json-tool.service';
   templateUrl: './json-tool.component.html',
   styleUrls: ['./json-tool.component.scss'],
 })
-export class JsonToolComponent implements OnInit, OnChanges {
+export class JsonToolComponent implements OnInit {
   @ViewChild(JsonToolInputNameComponent)
   inputNameComponent!: JsonToolInputNameComponent;
 
@@ -28,15 +28,42 @@ export class JsonToolComponent implements OnInit, OnChanges {
   @Output() jsonToolChange: EventEmitter<any> = new EventEmitter<any>();
   @Output() jsonToolJsonSaveClick: EventEmitter<any> = new EventEmitter<any>();
 
-  private data = { name: 'null', json: '' };
+  private data = { name: '', json: {} };
 
   constructor(private jsonToolService: JsonToolService) {}
 
   ngOnInit(): void {}
 
-  ngOnChanges(changes: SimpleChanges): void {
-    this.formattedJson = this.jsonToolService.formatJson(this.jsonData);
-    this.data = { ...this.data, json: this.formattedJson };
+  handleJsonChange($event: any) {
+    debugger;
+    let data;
+    if (typeof $event === 'object' && $event !== null) {
+      data = $event;
+    } else {
+      data = this.parseTextAreaToJson($event);
+    }
+
+    this.data = { ...this.data, json: data };
+    this.jsonChange.emit(data);
+  }
+
+  // esta funcion tiene que ir a un utils
+  private parseTextAreaToJson(jsonStrin: string): object {
+    let replacedJsonString = jsonStrin;
+    try {
+      replacedJsonString = jsonStrin
+        .replace(/(\w+):/g, '"$1":')
+        .replace(/'/g, '"');
+    } catch (e) {
+      console.warn('Error al replace el JSON:', e);
+    }
+
+    try {
+      return JSON.parse(replacedJsonString);
+    } catch (error) {
+      console.warn('Error al parsear el JSON:', error);
+    }
+    return {};
   }
 
   handleNameSaved($event: any) {
@@ -44,15 +71,24 @@ export class JsonToolComponent implements OnInit, OnChanges {
     this.data = { ...this.data, name: $event };
   }
 
-  handleJsonChange($event: any) {
-    this.jsonChange.emit($event);
-    this.data = { ...this.data, json: $event };
-  }
+  // handleJsonChange($event: any) {
+  //   debugger;
+  //   debugger;
+  //   this.jsonChange.emit($event);
+  //   this.data = { ...this.data, json: $event };
+  // }
 
   onSaveButtonClick() {
     // validariamos que tenga nombre y data
-    console.log('Save button clicked!', this.data);
-    this.jsonToolJsonSaveClick.emit(this.data);
+    const isValid = !!this.data.name && !!this.data.json;
+    if (!this.data.name) {
+      alert('Falta añadir un nombre');
+    }
+    if (!this.data.json) {
+      alert('Falta añadir valor del json');
+    }
+    // console.log('Save button clicked!', this.data);
+    isValid && this.jsonToolJsonSaveClick.emit(this.data);
   }
 
   emitJsonToolChange() {

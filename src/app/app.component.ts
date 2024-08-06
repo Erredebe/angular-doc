@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from './core/storage/storage.service';
 import { StorageKeys } from './core/storage/utils/storage.helpers';
+import { sampleInfoTemplate } from './docx-tool/utils/info.constants';
 
 @Component({
   selector: 'app-root',
@@ -8,16 +9,16 @@ import { StorageKeys } from './core/storage/utils/storage.helpers';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  public store: any[] = [];
+  public jsonSample: any;
 
   constructor(private storageService: StorageService) {}
 
   ngOnInit(): void {
-    this.storageService.loadAllFilesFromLocalStorage();
-    this.store = { ...this.store, ...this.storageService.getAllStoreItems() };
+    this.jsonSample = this.storageService.getStoreItems(StorageKeys.DATOSJSON);
   }
 
   handleJsonChange($event: any) {
+    debugger;
     console.log('handleJsonChange', $event);
   }
   handleNameSaved($event: any) {
@@ -28,8 +29,10 @@ export class AppComponent implements OnInit {
   }
 
   handleJsonSaveClick($event: any) {
+    debugger;
     const { json } = $event;
     console.log('handleJsonSaveClick', json);
+    debugger;
     this.storageService.setStorageItem(StorageKeys.DATOSJSON, json);
   }
 }

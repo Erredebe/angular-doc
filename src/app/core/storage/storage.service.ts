@@ -8,40 +8,36 @@ export class StorageService {
 
   constructor() {}
 
-  loadAllFilesFromLocalStorage() {
+  private refreshAllFilesFromLocalStorageOnStore() {
     const keys = Object.values(StorageKeys);
     this.store = [];
     keys.forEach((value: StorageKeys) => {
-      this.store = [
-        ...this.store,
-        { key: value, data: this.getStorageItem(value) },
-      ];
+      const data = this.getStorageItem(value);
+      this.store = [...this.store, { key: value, data }];
     });
   }
 
   getAllStoreItems(): any[] {
+    this.refreshAllFilesFromLocalStorageOnStore();
     return this.store;
   }
 
   getStoreItems(key: StorageKeys) {
-    return this.store.find((item) => item.key === key);
+    this.refreshAllFilesFromLocalStorageOnStore();
+    const value = this.store.find((item) => item.key === key).data;
+    return key === StorageKeys.PLANTILLA ? value : JSON.parse(value);
   }
 
-  setStorageItem(key: StorageKeys, value: any): boolean {
-    try {
-      localStorage.setItem(
-        key,
-        key !== StorageKeys.DATOSJSON ? value : JSON.stringify(value)
-      );
-      return true;
-    } catch (e) {
-      console.log('error', e);
-      return false;
-    }
+  setStorageItem(key: StorageKeys, value: any) {
+    const formattedValue =
+      key === StorageKeys.PLANTILLA ? value : JSON.stringify(value);
+    localStorage.setItem(key, formattedValue);
+    this.refreshAllFilesFromLocalStorageOnStore();
   }
 
-  private getStorageItem(item: StorageKeys) {
-    const storedValue = localStorage.getItem(item);
+  // La logica de transformar el json tiene que estar fuera de aquí
+  getStorageItem(key: StorageKeys) {
+    const storedValue = localStorage.getItem(key);
     return storedValue;
   }
 }

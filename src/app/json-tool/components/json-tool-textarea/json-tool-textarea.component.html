@@ -1,6 +1,6 @@
 <textarea
   #jsonTextarea
-  (input)="onJsonTextChange($event)"
   placeholder="Introduce tu JSON aquí"
-  [value]="jsonDataInput"
+  [value]="jsonDataInput | json"
+  (input)="handlChange()"
 ></textarea>
