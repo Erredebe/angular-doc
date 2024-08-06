@@ -40,4 +40,13 @@ export class StorageService {
     const storedValue = localStorage.getItem(key);
     return storedValue;
   }
+
+  removeAllStorageItems() {
+    Object.values(StorageKeys).forEach((key: StorageKeys) =>
+      localStorage.removeItem(key)
+    );
+  }
+  removeStorageItem(key: StorageKeys) {
+    localStorage.removeItem(key);
+  }
 }

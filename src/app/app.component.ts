@@ -18,21 +18,19 @@ export class AppComponent implements OnInit {
   }
 
   handleJsonChange($event: any) {
-    debugger;
-    console.log('handleJsonChange', $event);
+    // console.log('handleJsonChange', $event);
   }
   handleNameSaved($event: any) {
-    console.log('handleNameSaved', $event);
+    alert('nombre salvado correctamente');
+    //  console.log('handleNameSaved', $event);
   }
   handleJsonToolChange($event: any) {
-    console.log('handleJsonToolChange', $event);
+    //  console.log('handleJsonToolChange', $event);
   }
 
   handleJsonSaveClick($event: any) {
-    debugger;
     const { json } = $event;
-    console.log('handleJsonSaveClick', json);
-    debugger;
     this.storageService.setStorageItem(StorageKeys.DATOSJSON, json);
+    alert('Json salvado correctamente');
   }
 }

@@ -20,7 +20,7 @@ export class JsonToolTextareaComponent implements OnInit, OnChanges {
   @ViewChild('jsonTextarea', { static: true })
   jsonTextarea!: ElementRef<HTMLTextAreaElement>;
 
-  @Input() jsonDataInput: string = '';
+  @Input() jsonDataTextArea: string = '';
 
   @Output() jsonChange: EventEmitter<any> = new EventEmitter<any>();
 
@@ -30,14 +30,17 @@ export class JsonToolTextareaComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     debugger;
     const {
-      jsonDataInput: { currentValue },
+      jsonDataTextArea: { currentValue },
     } = changes;
     !!currentValue && this.jsonChange.emit(currentValue);
   }
 
   handlChange() {
-    const json = JSON.parse(this.jsonTextarea.nativeElement.value);
-    debugger;
-    this.jsonChange.emit(json);
+    try {
+      const json = JSON.parse(this.jsonTextarea.nativeElement.value);
+      this.jsonChange.emit(json);
+    } catch (e) {
+      console.warn('error Parsing JSON', e);
+    }
   }
 }
