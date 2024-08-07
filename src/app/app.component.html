@@ -1,7 +1,8 @@
+<app-prueba-generador-plantilla></app-prueba-generador-plantilla>
 <div class="container">
   <!-- Añadir la imagen del logo en la parte superior -->
 
-  <div class="sidebar">
+  <!-- <div class="sidebar">
     <div class="logo-container">
       <img src="assets/images/logo.png" alt="Angular Doc Logo" class="logo" />
     </div>
@@ -10,9 +11,11 @@
       class="sidebar-item"
     ></app-docx-tool-generate-boton>
     <app-doox-tool-template-generator></app-doox-tool-template-generator>
-  </div>
+    <app-prueba-generador-plantilla></app-prueba-generador-plantilla>
+  </div> -->
 
   <div class="main-content">
+    <app-prueba-visor-plantilla></app-prueba-visor-plantilla>
     <app-json-tool
       [jsonData]="jsonSample"
       (jsonChange)="handleJsonChange($event)"

@@ -12,6 +12,14 @@ export class DocxToolGenerateBotonComponent implements OnInit {
   ngOnInit(): void {}
   onButtonClick() {
     // Llamar al servicio cuando se hace clic en el botón
-    this.docxGeneratorService.generateTemplateSample();
+    //  this.docxGeneratorService.generateTemplateSample();
+    this.docxGeneratorService.addTableToTemplate(
+      [
+        { index: 1, text: 'Suelo', oferta: '705.000,00 €' },
+        { index: 2, text: 'Urbano (solar)', oferta: '705.000,00 €' },
+      ],
+      'assets/plantilla.docx',
+      'DocumentoConTabla'
+    );
   }
 }

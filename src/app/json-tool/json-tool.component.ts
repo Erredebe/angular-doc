@@ -67,7 +67,6 @@ export class JsonToolComponent implements OnInit, OnChanges {
 
   handleSampleJsonData() {
     this.jsonToTextArea = sampleInfoTemplate;
-    debugger;
     this.cdr.detectChanges(); // Forzar la detección de cambios
   }
 

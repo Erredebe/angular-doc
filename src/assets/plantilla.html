@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=unicode" />
+    <meta name="ProgId" content="Word.Document" />
+    <meta name="Generator" content="Microsoft Word 15" />
+    <meta name="Originator" content="Microsoft Word 15" />
+    <title>Documento Word Completo</title>
+    <style>
+      @page {
+        size: A4;
+        margin: 1cm 1cm 1cm 1cm; /* Márgenes de 1 cm en todos los lados */
+      }
+      body {
+        font-family: Arial, sans-serif;
+        width: 120%;
+        margin: 0.1pt auto;
+        padding: 0cm;
+        box-sizing: border-box;
+        /* margin-left: -145px; */
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        margin: 10px 0;
+        text-align: center;
+      }
+
+      h1 {
+        margin-top: -15px;
+      }
+      p {
+        margin: 10px 0;
+        text-align: justify;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 10px 0;
+        table-layout: fixed;
+      }
+      .medium-table th,
+      .medium-table td {
+        padding: 6px;
+        font-size: 12px;
+      }
+      .medium-table th {
+        /* background-color: red; */
+      }
+      .no-border {
+        border: none;
+      }
+      .text-center {
+        text-align: center;
+      }
+      .text-right {
+        text-align: right;
+      }
+      .small-table th,
+      .small-table td {
+        padding: 4px;
+        font-size: 10px;
+      }
+      .small-table {
+        width: 100%;
+        margin: 0 auto;
+      }
+      .small-table th {
+        background-color: aquamarine;
+        font-size: 14px;
+        text-align: center;
+      }
+      .cabecera thead th {
+        background-color: rgb(50, 144, 207);
+        color: #f2f2f2;
+        border: none;
+      }
+      .cabecera thead {
+        border: none;
+      }
+      .cabecera th,
+      .cabecera td {
+        padding: 2px;
+      }
+      .align-left {
+        margin-left: 0 !important;
+        margin-right: auto !important;
+        width: auto; /* Ajustar el ancho según el contenido */
+      }
+    </style>
+  </head>
+  <body>
+    <h1>{{titulo}}</h1>
+    <h2>{{subtitulo}}</h2>
+    <p>{{descripcion}}</p>
+    <h3>Tabla manual</h3>
+    <table
+      style="
+        width: 120%;
+        border-collapse: collapse;
+        margin: 0 auto;
+        /* margin-left: -115px; */
+        background-color: #e0e0e0;
+        border: unset;
+      "
+    >
+      <thead>
+        <tr style="background-color: #86f705; color: black; margin: 0px">
+          <th style="padding: 0px; border: unset">Encabezado 1</th>
+          <th style="padding: 0px; border: unset">Encabezado 2</th>
+          <th style="padding: 0px; border: unset">Encabezado 3</th>
+          <th style="padding: 0px; border: unset">Encabezado 4</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="text-align: center">
+          <td style="font-size: 13px; padding: 0px; border: unset">Dato 1</td>
+          <td style="font-size: 13px; padding: 0px; border: unset">Dato 2</td>
+          <td style="font-size: 13px; padding: 0px; border: unset">Dato 3</td>
+          <td style="font-size: 13px; padding: 0px; border: unset">Dato 3</td>
+        </tr>
+        <tr style="text-align: center">
+          <td style="font-size: 13px; padding: 0px; border: unset">Dato 4</td>
+          <td style="font-size: 13px; padding: 0px; border: unset">Dato 5</td>
+          <td style="font-size: 13px; padding: 0px; border: unset">Dato 6</td>
+          <td style="font-size: 13px; padding: 0px; border: unset">Dato 6</td>
+        </tr>
+        <tr style="text-align: center">
+          <td style="font-size: 13px; padding: 0px; border: unset">Dato 7</td>
+          <td style="font-size: 13px; padding: 0px; border: unset">Dato 8</td>
+          <td style="font-size: 13px; padding: 0px; border: unset">Dato 9</td>
+          <td style="font-size: 13px; padding: 0px; border: unset">Dato 6</td>
+        </tr>
+      </tbody>
+    </table>
+    <h3>Tabla manual al 100% de ancho sin contar con los bordes</h3>
+    <table
+      style="
+        width: 145%;
+        border-collapse: collapse;
+        margin: 0 auto;
+        margin-left: -115px;
+        background-color: #e0e0e0;
+        border: unset;
+      "
+    >
+      <thead>
+        <tr style="background-color: #86f705; color: black; margin: 0px">
+          <th style="padding: 0px; border: unset">Encabezado 1</th>
+          <th style="padding: 0px; border: unset">Encabezado 2</th>
+          <th style="padding: 0px; border: unset">Encabezado 3</th>
+          <th style="padding: 0px; border: unset">Encabezado 4</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="text-align: center">
+          <td style="font-size: 13px; padding: 0px; border: unset">Dato 1</td>
+          <td style="font-size: 13px; padding: 0px; border: unset">Dato 2</td>
+          <td style="font-size: 13px; padding: 0px; border: unset">Dato 3</td>
+          <td style="font-size: 13px; padding: 0px; border: unset">Dato 3</td>
+        </tr>
+        <tr style="text-align: center">
+          <td style="font-size: 13px; padding: 0px; border: unset">Dato 4</td>
+          <td style="font-size: 13px; padding: 0px; border: unset">Dato 5</td>
+          <td style="font-size: 13px; padding: 0px; border: unset">Dato 6</td>
+          <td style="font-size: 13px; padding: 0px; border: unset">Dato 6</td>
+        </tr>
+        <tr style="text-align: center">
+          <td style="font-size: 13px; padding: 0px; border: unset">Dato 7</td>
+          <td style="font-size: 13px; padding: 0px; border: unset">Dato 8</td>
+          <td style="font-size: 13px; padding: 0px; border: unset">Dato 9</td>
+          <td style="font-size: 13px; padding: 0px; border: unset">Dato 6</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Ejemplo de Tabla Simple</h3>
+    <table class="medium-table">
+      <thead>
+        <tr>
+          <th colspan="5"></th>
+        </tr>
+        <tr>
+          <th></th>
+          <th>Columna 1</th>
+          <th>Columna 2</th>
+          <th>Columna 3</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td></td>
+          <td>Dato 1</td>
+          <td>Dato 2</td>
+          <td>Dato 3</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>Dato 4</td>
+          <td>Dato 5</td>
+          <td>Dato 6</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td colspan="5"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Ejemplo de Tabla con Colspan y Alineaciones</h3>
+    <table class="medium-table">
+      <thead>
+        <tr>
+          <th class="text-center" colspan="2">Encabezado Combinado</th>
+          <th>Alineado a la Izquierda</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="text-center">Centrado</td>
+          <td class="text-right">Derecha</td>
+          <td>Izquierda</td>
+        </tr>
+        <tr>
+          <td colspan="3">Celda con Colspan de 3 columnas</td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>2</td>
+          <td>3</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Ejemplo de Tabla con Celdas y Fuente Más Pequeñas</h3>
+    <table class="small-table">
+      <thead>
+        <tr>
+          <th>Columna A</th>
+          <th>Columna B</th>
+          <th>Columna C</th>
+          <th>Columna D</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Dato A1</td>
+          <td>Dato B1</td>
+          <td>Dato C1</td>
+          <td>Dato D1</td>
+        </tr>
+        <tr>
+          <td>Dato A2</td>
+          <td>Dato B2</td>
+          <td>Dato C2</td>
+          <td>Dato D2</td>
+        </tr>
+        <tr>
+          <td colspan="2" class="text-center">Columna Combinada</td>
+          <td colspan="2" class="text-right">Texto Alineado a la Derecha</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Otro Ejemplo de Sección</h3>
+    <p>
+      Esta sección incluye un ejemplo adicional de texto. Phasellus sit amet
+      justo non metus dictum mollis. Integer suscipit, arcu eu vestibulum
+      vestibulum, felis ligula pharetra orci, sed cursus neque tortor id augue.
+    </p>
+
+    <h4>Lista no Ordenada</h4>
+    <ul>
+      <li>Elemento 1</li>
+      <li>Elemento 2</li>
+      <li>Elemento 3</li>
+    </ul>
+
+    <h4>Lista Ordenada</h4>
+    <ol>
+      <li>Primer Elemento</li>
+      <li>Segundo Elemento</li>
+      <li>Tercer Elemento</li>
+    </ol>
+
+    <h5>Imagen de Ejemplo</h5>
+    <p class="text-center">
+      <img src="https://via.placeholder.com/150" alt="Imagen de ejemplo" />
+    </p>
+    <!-- Esta tabla está hecha a manija con los styles -->
+
+    <table class="medium-table align-left">
+      <thead>
+        <tr>
+          <th colspan="5"></th>
+        </tr>
+        <tr>
+          <th></th>
+          <th>Columna 1</th>
+          <th>Columna 2</th>
+          <th>Columna 3</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td></td>
+          <td>Dato 1</td>
+          <td>Dato 2</td>
+          <td>Dato 3</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>Dato 4</td>
+          <td>Dato 5</td>
+          <td>Dato 6</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td colspan="5"></td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>

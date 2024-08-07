@@ -68,4 +68,9 @@ export const sampleInfoTemplate: any = {
   diasPublicado: 65,
   diasPrecio: 148,
   fechaPrimeraPublicacion: '02/04/2024',
+  imgKey: ['assets/images/logo.png', 'assets/images/pruebas/01.webp'],
+  tablaPrueba: [
+    { text: 'suelo', index: 1, oferta: '705.000,00 €' },
+    { text: 'Urbano(solar)', index: 1, oferta: '705.000,00 €' },
+  ],
 };

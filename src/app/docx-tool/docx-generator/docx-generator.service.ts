@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 
 import {
-  PatchType,
-  patchDocument,
   Document,
   Paragraph,
   Table,
@@ -10,6 +8,9 @@ import {
   TableRow,
   TextRun,
   Packer,
+  ImageRun,
+  patchDocument,
+  PatchType,
 } from 'docx';
 
 import { saveAs } from 'file-saver';
@@ -22,34 +23,211 @@ import { StorageKeys } from 'src/app/core/storage/utils/storage.helpers';
 export class DocxGeneratorService {
   constructor() {}
 
-  // generamos un docx basado en la plantilla de assets y los valores salvados en un objeto
-  generateDocx() {
-    throw new Error('Method not implemented.');
-  }
-
-  //Generamos un documento word basado en una plantilla subida en el proyecto
-  // y un JSON que tenemos almacenado dentro
-  generateTemplateSample() {
-    // Convertir todas las keys de infoDoc a patches
-    const patches = Object.entries(sampleInfoTemplate).reduce(
-      (acc, [key, value]) => {
-        const formattedValue = value ? this.convertToString(value) : '';
-        acc[key] = {
-          type: PatchType.PARAGRAPH,
+  async addTableToTemplate(
+    tableData: Array<{ index: number; text: string; oferta: string }>,
+    templatePath: string,
+    outputName: string
+  ) {
+    // Crear filas de la tabla a partir de los datos proporcionados
+    const tableRows = tableData.map(
+      (row) =>
+        new TableRow({
           children: [
-            new TextRun({
-              text: formattedValue,
-              bold: true, // Aplicar estilo bold
+            new TableCell({
+              children: [
+                new Paragraph({
+                  children: [new TextRun(row.index.toString())],
+                }),
+              ],
+            }),
+            new TableCell({
+              children: [new Paragraph({ children: [new TextRun(row.text)] })],
+            }),
+            new TableCell({
+              children: [
+                new Paragraph({ children: [new TextRun(row.oferta)] }),
+              ],
             }),
           ],
-        };
-        return acc;
-      },
-      {} as { [key: string]: any }
+        })
     );
 
+    // Agregar encabezados a la tabla
+    const headerRow = new TableRow({
+      children: [
+        new TableCell({
+          children: [new Paragraph({ children: [new TextRun('Index')] })],
+        }),
+        new TableCell({
+          children: [new Paragraph({ children: [new TextRun('Text')] })],
+        }),
+        new TableCell({
+          children: [new Paragraph({ children: [new TextRun('Oferta')] })],
+        }),
+      ],
+    });
+
+    // Crear la tabla con las filas y el encabezado
+    const table = new Table({
+      rows: [headerRow, ...tableRows],
+    });
+
+    // Crear el parche para reemplazar la clave `tablaPrueba` con la tabla
+    const patches = {
+      tablaPrueba: {
+        type: PatchType.PARAGRAPH,
+        children: [table],
+      },
+    };
+
     // Cargar la plantilla desde los assets
-    fetch('assets/plantilla_prop_venta.docx')
+    const response = await fetch(templatePath);
+    const templateArrayBuffer = await response.arrayBuffer();
+
+    // Usar patchDocument de docx para reemplazar el marcador `tablaPrueba` con la tabla generada
+    const patchedDoc = await patchDocument(templateArrayBuffer, { patches });
+
+    // Guardar el documento como un archivo utilizando file-saver
+    const blob = new Blob([patchedDoc], {
+      type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    });
+
+    saveAs(blob, `${outputName}.docx`);
+  }
+  //Generamos un documento word basado en una plantilla subida en el proyecto
+  // y un JSON que tenemos almacenado dentro
+  async generateTemplateSample() {
+    // Convertir todas las keys de sampleInfoTemplate a patches
+    const patchPromises = Object.entries(sampleInfoTemplate).map(
+      async ([key, value]) => {
+        if (key === 'imgKey') {
+          if (Array.isArray(value)) {
+            const imageRuns = await Promise.all(
+              value.map(async (url) => {
+                if (typeof url === 'string') {
+                  try {
+                    const response = await fetch(url);
+                    const imageArrayBuffer = await response.arrayBuffer();
+                    return new ImageRun({
+                      data: imageArrayBuffer,
+                      transformation: {
+                        width: 100, // Ancho en píxeles
+                        height: 100, // Alto en píxeles
+                      },
+                    });
+                  } catch (error) {
+                    console.error('Error cargando la imagen:', error);
+                    return null;
+                  }
+                }
+                return null;
+              })
+            );
+
+            const validImageRuns = imageRuns.filter(Boolean); // Filtrar imágenes válidas
+
+            if (validImageRuns.length > 0) {
+              return {
+                key,
+                patch: {
+                  type: 'paragraph',
+                  children: validImageRuns,
+                },
+              };
+            } else {
+              return null;
+            }
+          } else {
+            console.error('El valor de imgKey no es un array.');
+            return null;
+          }
+        } else if (key === 'tablaPrueba' && Array.isArray(value)) {
+          // Crear una tabla a partir de los datos de tablaPrueba
+          const tableRows = value.map(
+            (row) =>
+              new TableRow({
+                children: [
+                  new TableCell({
+                    children: [
+                      new Paragraph({
+                        children: [new TextRun(row.index.toString())],
+                      }),
+                    ],
+                  }),
+                  new TableCell({
+                    children: [
+                      new Paragraph({ children: [new TextRun(row.text)] }),
+                    ],
+                  }),
+                  new TableCell({
+                    children: [
+                      new Paragraph({ children: [new TextRun(row.oferta)] }),
+                    ],
+                  }),
+                ],
+              })
+          );
+
+          // Agregar encabezados a la tabla
+          const headerRow = new TableRow({
+            children: [
+              new TableCell({
+                children: [new Paragraph({ children: [new TextRun('Index')] })],
+              }),
+              new TableCell({
+                children: [new Paragraph({ children: [new TextRun('Text')] })],
+              }),
+              new TableCell({
+                children: [
+                  new Paragraph({ children: [new TextRun('Oferta')] }),
+                ],
+              }),
+            ],
+          });
+
+          const table = new Table({
+            rows: [headerRow, ...tableRows],
+          });
+
+          return {
+            key,
+            patch: {
+              type: 'paragraph',
+              children: [table], // Insertar la tabla directamente en los children
+            },
+          };
+        } else {
+          // Para texto, continuar como antes
+          const formattedValue = value ? this.convertToString(value) : '';
+          return {
+            key,
+            patch: {
+              type: 'paragraph',
+              children: [
+                new TextRun({
+                  text: formattedValue,
+                  bold: false, // Aplicar estilo bold
+                }),
+              ],
+            },
+          };
+        }
+      }
+    );
+
+    // Esperar a que todas las promesas se resuelvan
+    const patchesArray = await Promise.all(patchPromises);
+
+    // Convertir el array de patches en un objeto
+    const patches = patchesArray.reduce((acc, patchEntry) => {
+      if (patchEntry !== null) {
+        acc[patchEntry.key] = patchEntry.patch;
+      }
+      return acc;
+    }, {} as { [key: string]: any });
+
+    // Cargar la plantilla desde los assets
+    fetch('assets/plantilla.docx')
       .then((response) => response.arrayBuffer())
       .then((data) => {
         // Usar patchDocument de docx para reemplazar contenido
@@ -109,7 +287,7 @@ export class DocxGeneratorService {
     const patches = Object.entries(parsedData).reduce((acc, [key, value]) => {
       const formattedValue = value ? this.convertToString(value) : '';
       acc[key] = {
-        type: PatchType.PARAGRAPH,
+        type: 'paragraph',
         children: [
           new TextRun({
             text: formattedValue,
@@ -132,7 +310,7 @@ export class DocxGeneratorService {
         saveAs(blob, `${name}.docx`);
       })
       .catch((error) => {
-        console.error('Error generando el documento:', error);
+        alert(`Error generando el documento: ${error}`);
       });
   }
 
@@ -141,8 +319,7 @@ export class DocxGeneratorService {
     retorno = false
   ): void | Document {
     // Convertir la cadena JSON en un objeto JavaScript
-    debugger;
-    const jsonObject = jsonData; // JSON.parse(jsonData);
+    const jsonObject = JSON.parse(jsonData);
 
     // Generar la interfaz TypeScript
     const interfaceCode = this.generateInterfaceCode(jsonObject);

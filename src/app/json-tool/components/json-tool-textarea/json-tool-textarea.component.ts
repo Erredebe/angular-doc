@@ -28,7 +28,6 @@ export class JsonToolTextareaComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {}
   ngOnChanges(changes: SimpleChanges): void {
-    debugger;
     const {
       jsonDataTextArea: { currentValue },
     } = changes;

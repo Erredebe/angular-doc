@@ -7,7 +7,6 @@ export class JsonToolService {
   constructor() {}
 
   public formatJson(jsonInput: string) {
-    debugger;
     try {
       // JSON.parse(this.store[1].data)
       const parsedJson = JSON.parse(jsonInput);
